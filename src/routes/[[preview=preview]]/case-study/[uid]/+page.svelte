@@ -1,6 +1,7 @@
-<script>
-	// import { onMount } from 'svelte';
-	// import gsap from 'gsap';
+<script lang="ts">
+	import gsap from 'gsap';
+	import { onMount } from 'svelte';
+
 	import { SliceZone, PrismicText, PrismicImage } from '@prismicio/svelte';
 
 	import { components } from '$lib/slices';
@@ -10,29 +11,29 @@
 
 	export let data;
 
-	// onMount(() => {
-	// 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce').matches;
+	onMount(() => {
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce').matches;
 
-	// 	if (prefersReducedMotion) {
-	// 		gsap.set('.case-study__image', { opacity: 1 });
-	// 		return;
-	// 	}
+		if (prefersReducedMotion) {
+			gsap.set('.case-study__image', { opacity: 1 });
+			return;
+		}
 
-	// 	gsap.fromTo(
-	// 		'.case-study__image',
-	// 		{
-	// 			opacity: 0,
-	// 			y: 100
-	// 		},
-	// 		{
-	// 			opacity: 1,
-	// 			y: 0,
-	// 			duration: 1,
-	// 			delay: 0.5,
-	// 			ease: 'power2.inOut'
-	// 		}
-	// 	);
-	// });
+		gsap.fromTo(
+			'.case-study__image',
+			{
+				opacity: 0,
+				y: 100
+			},
+			{
+				opacity: 1,
+				y: 0,
+				duration: 1,
+				delay: 0.5,
+				ease: 'power2.inOut'
+			}
+		);
+	});
 </script>
 
 <Bounded>
@@ -49,7 +50,7 @@
 			<PrismicText field={data.page.data.description} />
 		</p>
 
-		<PrismicImage field={data.page.data.image} class="rounded-lg" />
+		<PrismicImage field={data.page.data.image} class="case-study__image rounded-lg opacity-0" />
 	</div>
 
 	<div class="mx-auto mt-12 md:mt-16">
