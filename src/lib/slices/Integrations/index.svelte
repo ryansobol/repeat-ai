@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { Content } from '@prismicio/client';
 
-	// import { onMount } from 'svelte';
-	// import gsap from 'gsap';
-
 	import clsx from 'clsx';
+	import gsap from 'gsap';
+	import { onMount } from 'svelte';
 
 	import { PrismicRichText, PrismicText } from '@prismicio/svelte';
 
@@ -33,68 +32,68 @@
 
 	export let slice: Content.IntegrationsSlice;
 
-	// onMount(() => {
-	// 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce').matches;
+	onMount(() => {
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce').matches;
 
-	// 	if (prefersReducedMotion) return;
+		if (prefersReducedMotion) return;
 
-	// 	const tl = gsap.timeline({
-	// 		repeat: -1,
-	// 		defaults: { ease: 'power2.inOut' }
-	// 	});
+		const tl = gsap.timeline({
+			repeat: -1,
+			defaults: { ease: 'power2.inOut' }
+		});
 
-	// 	tl.to('.pulsing-logo', {
-	// 		keyframes: [
-	// 			{
-	// 				filter: 'brightness(2)',
-	// 				opacity: 1,
-	// 				duration: 0.4,
-	// 				ease: 'power2.in'
-	// 			},
-	// 			{ filter: 'brightness(1)', opacity: 0.7, duration: 0.9 }
-	// 		]
-	// 	});
+		tl.to('.pulsing-logo', {
+			keyframes: [
+				{
+					filter: 'brightness(2)',
+					opacity: 1,
+					duration: 0.4,
+					ease: 'power2.in'
+				},
+				{ filter: 'brightness(1)', opacity: 0.7, duration: 0.9 }
+			]
+		});
 
-	// 	tl.to(
-	// 		'.signal-line',
-	// 		{
-	// 			keyframes: [
-	// 				{ backgroundPosition: '0% 0%' },
-	// 				{
-	// 					backgroundPosition: '100% 100%',
-	// 					stagger: { from: 'center', each: 0.3 },
-	// 					duration: 1
-	// 				}
-	// 			]
-	// 		},
-	// 		'-=1.4'
-	// 	);
+		tl.to(
+			'.signal-line',
+			{
+				keyframes: [
+					{ backgroundPosition: '0% 0%' },
+					{
+						backgroundPosition: '100% 100%',
+						stagger: { from: 'center', each: 0.3 },
+						duration: 1
+					}
+				]
+			},
+			'-=1.4'
+		);
 
-	// 	tl.to(
-	// 		'.pulsing-icon',
-	// 		{
-	// 			keyframes: [
-	// 				{
-	// 					opacity: 1,
-	// 					duration: 1,
-	// 					stagger: {
-	// 						from: 'center',
-	// 						each: 0.3
-	// 					}
-	// 				},
-	// 				{
-	// 					opacity: 0.4,
-	// 					duration: 1,
-	// 					stagger: {
-	// 						from: 'center',
-	// 						each: 0.3
-	// 					}
-	// 				}
-	// 			]
-	// 		},
-	// 		'-=2'
-	// 	);
-	// });
+		tl.to(
+			'.pulsing-icon',
+			{
+				keyframes: [
+					{
+						opacity: 1,
+						duration: 1,
+						stagger: {
+							from: 'center',
+							each: 0.3
+						}
+					},
+					{
+						opacity: 0.4,
+						duration: 1,
+						stagger: {
+							from: 'center',
+							each: 0.3
+						}
+					}
+				]
+			},
+			'-=2'
+		);
+	});
 </script>
 
 <Bounded
@@ -125,16 +124,18 @@
 
 						<div class="signal-line rotate-180"></div>
 					{/if}
+
 					<div
 						class="pulsing-icon flex aspect-square shrink-0 items-center justify-center rounded-full border border-violet-50/30 bg-violet-50/25 p-3 text-3xl text-violet-100 opacity-40 md:text-3xl lg:text-5xl"
 					>
 						<svelte:component this={icons[item.icon]} />
 					</div>
-					{#if index !== slice.items.length - 1}
+
+					{#if index !== slice.primary.icons.length - 1}
 						<div
 							class={clsx(
 								'signal-line',
-								index >= Math.floor(slice.items.length / 2) ? 'rotate-180' : 'rotate-0'
+								index >= Math.floor(slice.primary.icons.length / 2) ? 'rotate-180' : 'rotate-0'
 							)}
 						></div>
 					{/if}
